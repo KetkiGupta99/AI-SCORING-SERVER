@@ -1,7 +1,5 @@
 # AI-SCORING-SERVER
 
-#  AI Engineer Challenge: DeFi Reputation Scoring Server
-
 ##  Overview
 This task implements a **Kafka-based microservice** that processes DeFi transaction data and calculates wallet reputation scores using AI logic.  
 
