@@ -1,21 +1,20 @@
 # AI-SCORING-SERVER
 
-#  Overview
+1.  Overview
 This task implements a **Kafka-based microservice** that processes DeFi transaction data and calculates wallet reputation scores using AI logic.  
-
 The system consumes wallet transactions from a Kafka topic, processes them through an AI model, and publishes results (success or failure) to output Kafka topics.  
 
-#  Architecture
-The system follows an **event-driven microservices architecture**:
+2.  Architecture
+The system follows an **microservices architecture**:
 
-1. **Producer** → sends wallet transaction data to Kafka (`wallet-transactions` topic)  
-2. **Consumer Service** → consumes transactions, processes them with the AI scoring logic  
-3. **Producer (results)** → sends results back to Kafka on:  
+1. **Producer**: sends wallet transaction data to Kafka (`wallet-transactions` topic)  
+2. **Consumer Service**:  consumes transactions, processes them with the AI scoring logic  
+3. **Producer (results)**: sends results back to Kafka on:  
    - `wallet-scores-success` 
    - `wallet-scores-failure`
 
-#  Project Structure
-    dex-model.py # AI scoring model implementation
+3.  Project Structure
+    `dex-model.py # AI scoring model implementation
     types.py # Pydantic models for data validation
     kafka-service.py # Kafka consumer/producer
     main.py # FastAPI application entry point
@@ -23,35 +22,36 @@ The system follows an **event-driven microservices architecture**:
     Dockerfile # Container configuration
     requirements.txt # Required Python packages
     .env file 
-    test_challenge.py   # Test cases for validation
+    test_challenge.py   # Test cases for validation`
 
-## Create and activate a virtual environment
-    python3.11 -m venv venv
-    venv\Scripts\activate
+4. Create and activate a virtual environment
+    `python3.11 -m venv venv
+    venv\Scripts\activate`
 
-# Install dependencies: 
-    pip install -r requirements.txt
+5. Install dependencies: 
+    `pip install -r requirements.txt`
 
-# Create Environment File: 
-    Create a .env file in the root directory with Kafka config
+6. Create Environment File: 
+    `Create a .env file in the root directory with Kafka config`
 
-# Start Docker: This task uses Docker-Compose.yml for Kafka, Zookeeper, MongoDB, and the FastAPI scoring service.
-    Run: docker-compose up --build
+7. Start Docker: This task uses Docker-Compose.yml for Kafka, Zookeeper, MongoDB, and the FastAPI scoring service.
+    `Run: docker-compose up --build`
     This will start:
     
-    Zookeeper: Kafka coordination
+    `Zookeeper: Kafka coordination
     Kafka Broker: message streaming
     MongoDB: optional persistence
-    AI Scoring Service (FastAPI): main microservice
+    AI Scoring Service (FastAPI): main microservice`
 
-## create topics 
-    1. docker exec -it kafka /usr/bin/kafka-topics --create --topic wallet-transactions --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
-    2. docker exec kafka /usr/bin/kafka-topics --create --topic wallet-scores-success --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
-    3. docker exec kafka /usr/bin/kafka-topics --create --topic wallet-scores-failure --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+8. create topics 
+    `1. docker exec -it kafka /usr/bin/kafka-topics --create --topic wallet-transactions --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1`
+    `2. docker exec kafka /usr/bin/kafka-topics --create --topic wallet-scores-success --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1`
+    `3. docker exec kafka /usr/bin/kafka-topics --create --topic wallet-scores-failure --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1`
   
-## Verfiy topics are created or not:
+9. Verfiy topics are created or not:
    `docker exec kafka /usr/bin/kafka-topics --list --bootstrap-server localhost:9092`
 
+# Run the implementation: 
 1. Start the server:
    `python -m uvicorn app.main:app --host 0.0.0.0 --port 8000`
 2. Run the test_challenges.py file for test cases:
