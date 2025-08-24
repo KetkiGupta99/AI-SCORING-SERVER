@@ -1,11 +1,11 @@
 # AI-SCORING-SERVER
 
-##  Overview
+#  Overview
 This task implements a **Kafka-based microservice** that processes DeFi transaction data and calculates wallet reputation scores using AI logic.  
 
 The system consumes wallet transactions from a Kafka topic, processes them through an AI model, and publishes results (success or failure) to output Kafka topics.  
 
-##  Architecture
+#  Architecture
 The system follows an **event-driven microservices architecture**:
 
 1. **Producer** → sends wallet transaction data to Kafka (`wallet-transactions` topic)  
@@ -14,7 +14,7 @@ The system follows an **event-driven microservices architecture**:
    - `wallet-scores-success` 
    - `wallet-scores-failure`
 
-##  Project Structure
+#  Project Structure
     dex-model.py # AI scoring model implementation
     types.py # Pydantic models for data validation
     kafka-service.py # Kafka consumer/producer
@@ -29,13 +29,13 @@ The system follows an **event-driven microservices architecture**:
     python3.11 -m venv venv
     venv\Scripts\activate
 
-## Install dependencies: 
+# Install dependencies: 
     pip install -r requirements.txt
 
-## Create Environment File: 
+# Create Environment File: 
     Create a .env file in the root directory with Kafka config
 
-## Start Infrastructure with Docker: This task uses Docker-Compose.yml for Kafka, Zookeeper, MongoDB, and the FastAPI scoring service.
+# Start Docker: This task uses Docker-Compose.yml for Kafka, Zookeeper, MongoDB, and the FastAPI scoring service.
     Run: docker-compose up --build
     This will start:
     
@@ -49,7 +49,7 @@ The system follows an **event-driven microservices architecture**:
     2. docker exec kafka /usr/bin/kafka-topics --create --topic wallet-scores-success --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
     3. docker exec kafka /usr/bin/kafka-topics --create --topic wallet-scores-failure --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
   
-Verfiy topics are created or not:
+## Verfiy topics are created or not:
    `docker exec kafka /usr/bin/kafka-topics --list --bootstrap-server localhost:9092`
 
 1. Start the server:
